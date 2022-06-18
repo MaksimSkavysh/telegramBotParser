@@ -13,7 +13,8 @@ const parse = async (browser, parser, savedData) => {
   const { data: newData, errors } = await parser.parse(browser, ({ link }) => !savedData?.links?.[link])
   await MyTelegramBot.sendMessages(newData.map(getMessageText))
   if (errors && errors.length) {
-    await MyTelegramBot.sendMessages(getWarningMessage(errors))
+    const warnMessage = getWarningMessage(errors)
+    await MyTelegramBot.sendOneMessage(warnMessage)
   }
   await saveNewData(savedData, newData)
 }

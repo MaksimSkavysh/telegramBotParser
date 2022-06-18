@@ -35,7 +35,7 @@ exports.parse = async ({ actions, page }, filter) => {
         link,
         id: link,
         price: await actions.getText('[data-cy="adPageHeaderPrice"]', errors),
-        hostData: `${hostName}; ${hostType}`,
+        hostName: `${hostName}; ${hostType}`,
         address: await actions.getText('[aria-label="Adres"]', errors),
         publishingDateInfo: `${added}; ${updated}`,
       })

@@ -18,15 +18,18 @@ const init = async () => {
     close: () => browser.close(),
     $: page.$,
     getText: async (selector, errors) => {
-      await page.waitForSelector(selector, { timeout: 3000 })
-      return await page.$eval(selector, el => el.textContent)
-        .catch((e) => {
-          if (!errors) {
-            throw e
-          } else {
-            Array.isArray(errors) && errors.push(e)
-          }
-        })
+      try {
+        await page.waitForSelector(selector, { timeout: 3000 })
+        return await page.$eval(selector, el => el.textContent)
+      } catch (e) {
+        console.log('______________ERRORS', errors)
+        if (!errors) {
+          throw e
+        } else {
+          console.error(e)
+          Array.isArray(errors) && errors.push(e)
+        }
+      }
     },
   }
   return { page, browser, actions }
