@@ -12,6 +12,8 @@ const OTODOM_URL = 'https://www.otodom.pl/pl/oferty/wynajem/mieszkanie/krakow' +
   '&areaMin=45' +
   '&viewType=listing'
 
+const PAGES_TIMEOUT = 200
+
 exports.parse = async ({ actions, page }, filter) => {
   await page.goto(OTODOM_URL)
   await actions.click('#onetrust-accept-btn-handler')
@@ -39,6 +41,7 @@ exports.parse = async ({ actions, page }, filter) => {
         address: await actions.getText('[aria-label="Adres"]', errors),
         publishingDateInfo: `${added}; ${updated}`,
       })
+      await new Promise(resolve => setTimeout(resolve, PAGES_TIMEOUT))
     }
   }
   return { data, errors }
