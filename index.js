@@ -23,7 +23,6 @@ const main = async () => {
   let browser
   try {
     console.log('\n', (new Date()).toLocaleDateString('ru', { hour: 'numeric', minute: 'numeric' }))
-    await MyTelegramBot.sendOneMessage('Telegram bot started')
     const savedData = await loadSavedData()
     const users = await loadUsers()
     MyTelegramBot.setSecondaryUsers(users)
