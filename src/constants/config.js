@@ -18,6 +18,6 @@ module.exports = {
   BACKUP_FOLDER: getEnv('TELEGRAM_BOT_TOKEN', './data'),
   TIMEOUT: getEnv('TIMEOUT', (10 * 60 * 1000)),
   PUPPETEER_HEADLESS: getEnv('PUPPETEER_HEADLESS', true),
-  FILE_PATH: path.join(process.cwd(), 'data', 'usedLinksData.json'),
+  STORAGE_PATH: path.join(process.cwd(), 'data'),
   PASSWORD: '1223',
 }

@@ -23,7 +23,7 @@ ${errors.map(e => `*Warn*: ${escapeSpecialCharacters(e.toString())}
 
 module.exports = {
   getMessageText,
-  formatTextForMarkdownV2: escapeSpecialCharacters,
+  formatTextForMarkdown: escapeSpecialCharacters,
   getErrorMessage,
   getWarningMessage,
 }
