@@ -14,7 +14,7 @@ const loadSavedData = async (file, defaultValue) => {
 const saveNewData = async (file, data) => {
   const filePath = path.join(STORAGE_PATH, file)
   fs.writeFileSync(filePath, JSON.stringify(data, undefined, 2))
-  console.log('Backup was saved successfully')
+  console.log('Backup was saved successfully to', file)
 }
 
 const USERS_FILE = path.join(STORAGE_PATH, 'users.json')

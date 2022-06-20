@@ -20,7 +20,7 @@ const init = async () => {
     getText: async (selector, errors) => {
       try {
         await page.waitForSelector(selector, { timeout: 6000 })
-        return await page.$eval(selector, el => el.textContent)
+        return await page.$eval(selector, el => el.textContent?.replace('\n', ''))
       } catch (e) {
         console.log('______________ERRORS', errors)
         if (!errors) {

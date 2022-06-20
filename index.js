@@ -3,7 +3,8 @@ const { TELEGRAM_BOT_TOKEN, USER_ID, TIMEOUT } = require('./src/constants/config
 const { loadSavedData, saveNewData, loadUsers, saveUsers } = require('./src/services/storage')
 const { TelegramBot } = require('./src/services/telegram')
 const initializeBrowser = require('./src/services/puppeteerInitialize')
-const otodom = require('./src/services/otodom')
+const otodomParser = require('./src/services/otodom')
+const morizonParser = require('./src/services/morizon')
 const { getMessageText, getErrorMessage, getWarningMessage, formatTextForMarkdown } = require('./src/utils/utils')
 
 const parse = async (browser, parser, file) => {
@@ -37,7 +38,8 @@ const main = async () => {
     const users = await loadUsers()
     MyTelegramBot.setSecondaryUsers(users)
     browser = await initializeBrowser()
-    await parse(browser, otodom, 'otodomLinks.json')
+    await parse(browser, otodomParser, 'otodomLinks.json')
+    await parse(browser, morizonParser, 'morizonLinks.json').catch(() => null) // unstable
     await browser.browser.close()
     restartAttempts = 0
   } catch (e) {
@@ -54,3 +56,12 @@ const main = async () => {
 }
 
 main()
+
+// const _startParser = async () => {
+//   const browser = await initializeBrowser()
+//   const { data, errors } = await morizonParser.parse(browser, ({ link }) => true)
+//   debugger
+//   console.log('data', data, errors)
+//   await browser.browser.close()
+// }
+// _startParser()
