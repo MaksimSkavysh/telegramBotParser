@@ -9,7 +9,7 @@ const OTODOM_URL = 'https://www.otodom.pl/pl/oferty/wynajem/mieszkanie/krakow' +
   '&heating=%5BURBAN%5D' +
   '&locations=%5Bcities_6-38%5D' +
   '&priceMin=2000' +
-  '&areaMin=45' +
+  '&areaMin=40' +
   '&viewType=listing'
 
 const PAGES_TIMEOUT = 200

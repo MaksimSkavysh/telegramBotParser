@@ -19,4 +19,5 @@ module.exports = {
   TIMEOUT: getEnv('TIMEOUT', (10 * 60 * 1000)),
   PUPPETEER_HEADLESS: getEnv('PUPPETEER_HEADLESS', true),
   FILE_PATH: path.join(process.cwd(), 'data', 'usedLinksData.json'),
+  PASSWORD: '1223',
 }
