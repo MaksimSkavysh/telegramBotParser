@@ -1,11 +1,10 @@
 require('dotenv').config()
-const config = require('./config.json')
-const { TELEGRAM_BOT_TOKEN, USER_ID } = require('./src/constants/config')
+const { TELEGRAM_BOT_TOKEN, USER_ID, TIMEOUT } = require('./src/constants/config')
 const { loadSavedData, saveNewData } = require('./src/services/storage')
 const { TelegramBot } = require('./src/services/telegram')
 const initializeBrowser = require('./src/services/puppeteerInitialize')
 const otodom = require('./src/services/otodom')
-const { getMessageText, getErrorMessage, getWarningMessage } = require('./src/utils')
+const { getMessageText, getErrorMessage, getWarningMessage } = require('./src/utils/utils')
 
 const MyTelegramBot = new TelegramBot(TELEGRAM_BOT_TOKEN, USER_ID)
 
@@ -32,7 +31,7 @@ const main = async () => {
     await browser?.browser?.close()
     throw e
   }
-  setTimeout(main, config.rerunTime)
+  setTimeout(main, TIMEOUT)
 }
 
 main()
