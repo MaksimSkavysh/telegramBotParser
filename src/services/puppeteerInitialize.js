@@ -10,7 +10,7 @@ const init = async () => {
       await page.$eval(selectorPath, (el, value) => el.value = value, value)
     },
     wait: (t = 5000) => new Promise((resolve) => setTimeout(resolve, t)),
-    click: async (selector, { timeout = 3000 } = {}) => {
+    click: async (selector, { timeout = 6000 } = {}) => {
       await page.waitForSelector(selector, { timeout })
       await page.click(selector)
     },
@@ -19,7 +19,7 @@ const init = async () => {
     $: page.$,
     getText: async (selector, errors) => {
       try {
-        await page.waitForSelector(selector, { timeout: 3000 })
+        await page.waitForSelector(selector, { timeout: 6000 })
         return await page.$eval(selector, el => el.textContent)
       } catch (e) {
         console.log('______________ERRORS', errors)

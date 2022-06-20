@@ -42,28 +42,30 @@ class TelegramBot {
     this.saveUsers(this.secondaryUsers)
   }
 
-  async _sendToAllUsers (message) {
+  async _sendToAllUsers (message, mainUserOnly) {
     await this.bot.telegram.sendMessage(this.userId, message, { parse_mode: 'MarkdownV2' })
-    try {
-      Object.entries(this.secondaryUsers)
-        .filter(([id, value]) => value && id !== this.userId)
-        .forEach(([id]) => {
-          this.bot.telegram.sendMessage(id, message, { parse_mode: 'MarkdownV2' })
-        })
-    } catch (e) {
-      console.error(e)
+    if (!mainUserOnly) {
+      try {
+        Object.entries(this.secondaryUsers)
+          .filter(([id, value]) => value && id !== this.userId)
+          .forEach(([id]) => {
+            this.bot.telegram.sendMessage(id, message, { parse_mode: 'MarkdownV2' })
+          })
+      } catch (e) {
+        console.error(e)
+      }
     }
   }
 
-  async sendOneMessage (message) {
+  async sendOneMessage (message, mainUserOnly) {
     if (!message || Object.keys(message).length === 0) {
       console.error('Message: ', message)
       throw new Error('Empty message not allowed')
     }
-    await this._sendToAllUsers(message)
+    await this._sendToAllUsers(message, mainUserOnly)
   }
 
-  async sendMessages (messages) {
+  async sendMessages (messages, mainUserOnly) {
     if (messages.length === 0) {
       // eslint-disable-next-line no-console
       console.log('No updates')
@@ -72,7 +74,7 @@ class TelegramBot {
     // eslint-disable-next-line no-console
     console.log('sending updates to telegram...')
     for (const message of messages) {
-      await this.sendOneMessage(message)
+      await this.sendOneMessage(message, mainUserOnly)
     }
     // eslint-disable-next-line no-console
     console.log(`${messages.length} messages was sent to telegram`)
