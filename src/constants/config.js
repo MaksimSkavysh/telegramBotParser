@@ -17,7 +17,7 @@ module.exports = {
   USER_ID: getEnv('USER_ID'),
   BACKUP_FOLDER: getEnv('TELEGRAM_BOT_TOKEN', './data'),
   TIMEOUT: getEnv('TIMEOUT', (10 * 60 * 1000)),
-  PUPPETEER_HEADLESS: getEnv('PUPPETEER_HEADLESS', false),
+  PUPPETEER_HEADLESS: getEnv('PUPPETEER_HEADLESS', true),
   STORAGE_PATH: path.join(process.cwd(), 'data'),
   PASSWORD: '1223',
 }
