@@ -11,6 +11,7 @@ const parse = async (browser, parser, file) => {
   const savedData = await loadSavedData(file, { links: [] })
   const { data, errors } = await parser.parse(browser, ({ link }) => !savedData?.links?.[link])
   await MyTelegramBot.sendMessages(data.map(getMessageText))
+  console.log(`${data.length} messages sent`)
   if (errors && errors.length) {
     const warnMessage = getWarningMessage(errors)
     await MyTelegramBot.sendOneMessage(warnMessage)
@@ -39,7 +40,7 @@ const main = async () => {
     MyTelegramBot.setSecondaryUsers(users)
     browser = await initializeBrowser()
     await parse(browser, otodomParser, 'otodomLinks.json')
-    await parse(browser, morizonParser, 'morizonLinks.json').catch(() => null) // unstable
+    // await parse(browser, morizonParser, 'morizonLinks.json').catch(() => null) // unstable
     await browser.browser.close()
     restartAttempts = 0
   } catch (e) {
